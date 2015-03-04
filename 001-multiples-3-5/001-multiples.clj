@@ -12,5 +12,3 @@
         (recur (inc current) sum)))))
 
 (sum-multiples-3-5 1000)
-
-
