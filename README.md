@@ -8,6 +8,7 @@ Learn a new programming language by practice.
 - [ ] C/C++
 - [ ] Clojure
 - [ ] Common Lisp
+- [ ] Go
 - [ ] Haskell
 - [ ] R
 - [ ] Racket
