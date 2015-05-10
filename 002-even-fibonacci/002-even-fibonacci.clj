@@ -7,8 +7,7 @@
       (recur m (+ n m) sum))))
 
 ; Answer 2
-(defn fibs
-  []
+(defn fibs []
   (map first (iterate (fn [[n m]] [m (+ n m)]) [0 1])))
 
-(take-while (< 40) (fibs))
+(apply + (filter even? (take-while #(<= % 4000000) (fibs))))
