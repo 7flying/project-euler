@@ -15,5 +15,4 @@
                   :else (recur (+ b 6)))
                 true)))))
 
-(drop 10000 (filter is-prime? (iterate inc 1)))
-
+(drop 10000 (take 10001  (filter is-prime? (iterate inc 2))))
