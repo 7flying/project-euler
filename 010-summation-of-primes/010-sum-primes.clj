@@ -16,7 +16,10 @@
                   :else (recur (+ b 6)))
                 true)))))
 
-(defn sum-primes-below [num]
+(defn sum-up-to-n-primes [num]
   (reduce + (take num (filter is-prime? (iterate inc 1)))))
 
-(sum-primes-below 2000000)
+(defn sum-primes-below [num]
+  (reduce + (filter is-prime? (take-while #(< % num) (iterate inc 2)))))
+
+(sum-primes-below 10)
