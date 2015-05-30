@@ -22,4 +22,4 @@
 (defn sum-primes-below [num]
   (reduce + (filter is-prime? (take-while #(< % num) (iterate inc 2)))))
 
-(sum-primes-below 10)
+(sum-primes-below 2000000)
