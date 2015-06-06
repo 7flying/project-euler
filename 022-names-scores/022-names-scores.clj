@@ -1,23 +1,17 @@
-(use 'clojure.java.io)
 (use '[clojure.string :only (split)])
 
-(defn get-lines [fname]
-  (with-open [r (reader fname)]
-    (doall (line-seq r))))
+(defn get-name-score [name]
+  (reduce + (map #(- (int %) 64) name)))
 
-(def triangle
-  (loop [triangle [] lines (get-lines "../resources/018-triangle.txt")]
-    (if (empty? lines)
-      triangle
-      (recur (conj triangle
-                   (into [] (doall (map #(Integer/parseInt %) (split (first lines) #"\s+")))) )
-             (rest lines)))))
+(defn person-names []
+  (let [names (sort (split (slurp "../resources/022_names.txt") #","))]
+    names))
 
-(def person-names
-  (loop [pnames () lines (get-lines "../resources/022_names.txt")]
-    (if (empty? lines)
-      pnames
-      (recur (conj pnames (into () (split (first lines) #"\s+"))) (rest lines)))))
+(defn names-scores []
+  (loop [names (person-names) pos 1 total 0]
+    (if (empty? names)
+      total
+      (recur (rest names) (inc pos) (+ total (* pos (get-name-score (first names))))))))
 
-(slurp "../resources/022_names.txt")
-(str (slurp "../resources/022_names.txt"))
+(names-scores)
+
