@@ -1,18 +1,19 @@
 (defn is-prime? [num]
-  (cond
-    (<= num 1) true
-    (< num 4) true
-    (zero? (mod num 2)) false
-    (< num 9) true
-    (zero? (mod num 3)) false
-    :else (let [limit (Math/floor (Math/sqrt num))]
-            (loop [b 5]
-              (if (<= b limit)
-                (cond
-                  (zero? (mod num b)) false
-                  (zero? (mod num (+ b 2))) false
-                  :else (recur (+ b 6)))
-                true)))))
+  (let [num (if (< num 0) (* num -1) num)]
+    (cond
+      (<= num 1) true
+      (< num 4) true
+      (zero? (mod num 2)) false
+      (< num 9) true
+      (zero? (mod num 3)) false
+      :else (let [limit (Math/floor (Math/sqrt num))]
+              (loop [b 5]
+                (if (<= b limit)
+                  (cond
+                    (zero? (mod num b)) false
+                    (zero? (mod num (+ b 2))) false
+                    :else (recur (+ b 6)))
+                  true))))))
 
 (defn quadratic-prime [a b n]
   (+ (* n n) (* a n) b))
@@ -33,4 +34,4 @@
           (recur (rest combi) tem (first combi))
           (recur (rest combi) greatest coefss))))))
 
-(greatest-quadratic-primes)
+(reduce * (greatest-quadratic-primes))
