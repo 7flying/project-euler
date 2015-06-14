@@ -24,7 +24,7 @@
                   (zero? (mod num b)) false
                   (zero? (mod num (+ b 2))) false
                   :else (recur (+ b 6)))
-                true)))))
+                (do (println num) true))))))
 
 (defn next-rotation [number]
   (Long/parseLong (clojure.string/join "" (conj
@@ -40,3 +40,4 @@
         false))))
 
 (count (into #{} (filter #(circular-prime? %) (range 2 1000000))))
+
