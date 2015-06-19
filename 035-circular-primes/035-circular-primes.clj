@@ -1,4 +1,5 @@
-; Generates all the rotations, not efficient for this problem
+; Generates all the rotations, not efficient for this problem -> ...mm I'll use
+; it after all
 (defn generate-rotations [number]
   (loop [number (str number) iterations (dec (count (str number)))
         rotations (conj [] (str number))]
@@ -9,7 +10,6 @@
                                           (first (seq number))))]
         (recur temp (dec iterations) (conj rotations temp))))))
 
-; Here begins the answer
 (defn is-prime? [num]
   (cond
     (<= num 1) true
@@ -24,20 +24,10 @@
                   (zero? (mod num b)) false
                   (zero? (mod num (+ b 2))) false
                   :else (recur (+ b 6)))
-                (do (println num) true))))))
-
-(defn next-rotation [number]
-  (Long/parseLong (clojure.string/join "" (conj
-                                           (into [] (rest (seq (str number))))
-                                           (first (seq (str number)))))))
+                true)))))
 
 (defn circular-prime? [number]
-  (loop [number number iterations (count (str number))]
-    (if (zero? iterations)
-      true
-      (if (is-prime? number)
-        (recur (next-rotation number) (dec iterations))
-        false))))
+  (every? identity (map #(is-prime? (Long/parseLong %))
+                        (generate-rotations number))))
 
 (count (into #{} (filter #(circular-prime? %) (range 2 1000000))))
-
