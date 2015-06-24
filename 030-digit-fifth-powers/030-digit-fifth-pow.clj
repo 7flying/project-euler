@@ -17,10 +17,16 @@
 
 (reduce + (digit-fifth-pow))
 
+; Answer 2: using transients
+; Without transients: "Elapsed time: 471.258413 msecs"
+; With transients: "Elapsed time: 447.753366 msecs"
+; However, in subsequent executions it's not clear
+(defn digit-fifth-pow-transient []
+  (loop [numbers (transient []) current 2]
+    (if (= current (* 59049 5))
+      (persistent! numbers)
+      (if (number-fifth-power-sum? current)
+        (recur (conj! numbers current) (inc current))
+        (recur numbers (inc current))))))
 
-
-
-
-
-
-
+(reduce + (digit-fifth-pow-transient))
